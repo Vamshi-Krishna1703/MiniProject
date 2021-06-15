@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request
+
 import pickle
 import numpy as np
 import librosa
 import soundfile
+
 app = Flask(__name__)
+
 model = pickle.load(open('model.pkl', 'rb'))
 
 @app.route('/' , methods = ['GET'])
@@ -20,9 +23,9 @@ def predict():
     fs=extract_feature(audio_path, mfcc=True, chroma=True, mel=True)
     example_x = []
     example_x.append(fs)
-
     op = model.predict(example_x)[0]
-    return render_template("index.html", pred = op)
+    ans = "The dominant emotion of the file '"+ audioFile.filename +"' is " + op
+    return render_template("index.html", pred = ans)
     
 
 #DataFlair - Extract features (mfcc, chroma, mel) from a sound file

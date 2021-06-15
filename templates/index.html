@@ -5,21 +5,73 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
+    <title>SER</title>
+
+    <style>
+        div.card {
+            width: 250px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            text-align: center;
+        }
+
+        body {
+            background: linear-gradient(to bottom left, #ffffff 0%, #66ffff 90%);   
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 <body>
 
-    <h2 class="text-center">SER</h2>
-    
-    <form class="text-center p-3" action="/" method="POST" enctype="multipart/form-data">
-        <input class="form-control" type="file" name="AudioFile">
-        <input class="btn-primary mt-3 waves-effect" type="submit" value = "Predict emotion">
-    </form>
+    <br><br>
 
+    <h2 class="text-center text-primary">Speech emotion Recognition Using Librosa</h2>
+    <br/><br/>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <div class="card" style="width: 100%">
+                    <div class="card-body">
+                        <form class="text-center p-3" action="/" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="AudioFile" onchange="preview(event)">
+                            </div>
+                            <div>
+                                <audio controls id="previewAudio">
+                                    <!-- <source src="../audio/Happy#.wav" type="audio/wav"> -->
+                                </audio> 
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input class="btn btn-outline-primary waves-effect" type="submit" value = "Predict emotion">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <h3 class="text-center"> {{pred}} </h3>
+        <br><br>
+        <h3 class="text-center text-success"> {{pred}} </h3>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    function preview(event)
+    {
+        var audioURL = URL.createObjectURL(event.target.files[0]);
+        // console.log(event.target.files[0]);
+        var ad = document.getElementById("previewAudio");
+        var newAudio = document.createElement("source");
+        console.log(audioURL);
+        newAudio.src = audioURL;
+        newAudio.type = "audio/wav";
+        ad.appendChild(newAudio);
+    }
+</script>
 </body>
 </html>
